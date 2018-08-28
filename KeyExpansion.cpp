@@ -3,6 +3,7 @@
 #include "Word.h"
 #include "Key.h"
 #include "KeyExpansion.h"
+#include <vector>
 
 using namespace std;
 
@@ -76,11 +77,22 @@ Word RotNib(const Word w){
     return (Word(w.getNib2(), w.getNib1()));
 }
 
+/*
+ * function: key_expansion
+ *
+ * description: This functions performs the core of the key expansion function. 
+ * It takes a key and calculates two new keys from it, based on the two words that make up the key.. 
+ * The function returns an array of the three keys
+ */
+vector<Key> key_expansion(const Key key){
 
-Word* key_expansion(const Word key1, const Word key2){
-    Word* W = new Word[6];
-    W[0] = key1;
-    W[1] = key2;
+    Word W[6];
+    // Key* K = new Key[3];
+    vector<Key> K(3);
+
+    // cout << "Entering the key expansion function. The first word is " << key.getWord1() << "\n and the second word is " << key.getWord2() << endl;
+    W[0] = key.getWord1();
+    W[1] = key.getWord2();
     
     for (int i = 2; i < 6; i++){
         if (i % 2 == 0) {
@@ -95,11 +107,19 @@ Word* key_expansion(const Word key1, const Word key2){
             W[i] = W[i - 2] ^ W[i - 1];
         }
     }
-    
+   
+
+    // This will test if the words are getting set correctly 
+    /*
     for (int i = 0; i < 6; i++){
         cout << "W[" << i << "]: " << W[i] << "\n";
     }
-    return W;
+    */
+
+    for (int i = 0; i < 3; i++){
+	    K[i] = Key(W[2 * i], W[2 * i + 1]);
+    }
+    return K;
 }
 
 
@@ -110,24 +130,34 @@ Word* key_expansion(const Word key1, const Word key2){
  * description: Just used for testing the other functions; making sure that the key expansion is working correctly
  *
  */
+
+/*
 int main() {
-    //    Word* key0 = new Word(12, 11);
-    //    Word* key1 = new Word(15, 14);
+
+    // cout << "Program starts here. Hello!\n";
+ 
+    Word word0 = Word(5, 9);
+    Word word1 = Word(7, 10);
+
+    Key key1 = Key(word0, word1);
     
-    Word* word0 = new Word(5, 9);
-    Word* word1 = new Word(7, 10);
+    // cout << "Word 0 value: " << key1.getWord1().getVal() << endl;
+    // cout << "Word 1 value: " << key1.getWord2().getVal() << endl;    
+
+    vector<Key> key_arr(3);
+    key_arr = key_expansion(key1);
     
-    Word* word_arr;
-    word_arr = key_expansion(*word0, *word1);
-    
-    Key* key_arr[3];
-    for (int i = 0; i < 3; i++)
-        key_arr[i] = new Key(word_arr[2 * i], word_arr[2 * i + 1]);
+    //for (int i = 0; i < 3; i++)
+    //    key_arr[i] = new Key(word_arr[2 * i], word_arr[2 * i + 1]);
     //    cout << "Key 0: " << key_arr[0].getNib1() << key_arr[0].getNib2() << endl;
     for (int i = 0; i < 3; i++){
         //cout << "Key: " << key_arr[i].getNib1() << key_arr[i].getNib2() << endl;
-        cout << "Key " << i <<": " << *key_arr[i] << endl;
+        cout << "Key " << i <<": " << key_arr[i] << endl;
+        cout << "Key from getBinary(): " << key_arr[i].getBinary() << endl;
     }
-    
+
+
     return 0;
 }
+*/
+

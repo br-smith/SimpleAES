@@ -7,6 +7,6 @@
 std::ostream& operator<<(std::ostream& os, Key k){
     //std::cout << "Word 1: " << k.getWord1() << std::endl;
     //std::cout << "Word 2: " << k.getWord2() << std::endl;
-    os << k.getWord1() << k.getWord2();
+    os << k.getWord1() << " " << k.getWord2();
     return os;
 }

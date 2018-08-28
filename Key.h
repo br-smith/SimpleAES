@@ -14,14 +14,27 @@ class Key {
 	Word word2;
 
     public:
-	Key(Word w1, Word w2){
-	    std::cout << "Hello; setting word 1 to: " << w1 << " and word 2 to: " << w2 << std::endl;
+	Key(Word w1=NULL, Word w2=NULL){
+	    // std::cout << "Hello; setting word 1 to: " << w1 << " and word 2 to: " << w2 << std::endl;
 	    word1 = w1;
 	    word2 = w2;	
 	}
 
 	const Word& getWord1() const {
 	    return word1;
+	}
+    
+    std::string getBinary() const {
+       return word1.getBinary() + word2.getBinary();
+    }
+
+	char* getWord1Bin() {
+	    std::cout << "Entering getWord1Bin method" << std::endl;
+	    return word1.getBitArray();
+	}
+
+	char* getWord2Bin() {
+	    return word2.getBitArray();
 	}
 
 	const Word& getWord2() const {
